@@ -28,47 +28,37 @@ void startingGrading()
     while(fgets(buf, 255, fp) != NULL){
        temp1 = strtok(buf, "," );
        temp2 = strtok(NULL, ",");
+       
        if(strcmp(temp1, "Last Name") == 0){
 	   continue;
        }
-       sprintf(students[studentIndex++], temp1);
-       
 	if (strlen(temp2) == 1){
 	    sprintf(subjects[subjectIndex++], temp2);
 	    continue;
 	}
+       
+//       if(isString(temp1) && isString(temp2)){
+//	   printf("%s\n", temp1 + " " + temp2);
+//		sprintf(students[studentIndex++], temp1 + " " + temp2);
+//
+//       }
         while(temp2 != NULL){
 	    
             printf("%s ", temp2);
             temp2 = strtok(NULL, ",");
         } // while temp
-       i++;
     } // while fgets
 }
 
-void getSubject(char *line, char result[][STRING_BUF])
-{
-    char *temp;
-    static int i = 0;
-    temp = strtok(line, "," );
-    if(strlen(strtok(NULL, ","))== 1){
-        sprintf(result[i++],temp );
+int isString(char * s){
+    int i, resutl = 1;
+    for (i = 0; i < strlen(s); i++) {
+        if(isdigit(s[i])){
+	    resutl = 0;
+	    break;
+	}
     }
-}
 
-void getStudent(char *line, char result[][STRING_BUF])
-{
-    char *temp;
-    int i = 0;
-    printf("[+] %s ", line);
-     temp = strtok(line, "," );
-     while(temp != NULL){
-//	 if(strcmp(temp, "Last Name") == 0)
-//	     break;
-//	printf("[+] %s ", temp);
-	temp = strtok(NULL, ",");
-     } // while temp
-    
+    return resutl;
 }
-
 

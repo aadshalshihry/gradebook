@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 #include <string.h>
-//#include <ctype.h>
+#include <ctype.h>
 
 #define STUDENT 3
 #define SUBJECT 2
@@ -27,7 +27,7 @@
 void startingGrading();
 void getSubject(char *line, char result[][STRING_BUF]);
 void getStudent(char *line, char result[][STRING_BUF]);
-//int isString(char * s);
+int isString(char * s);
 
 #ifdef __cplusplus
 extern "C" {
