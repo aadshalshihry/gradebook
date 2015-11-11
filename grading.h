@@ -29,6 +29,7 @@ void getSubject(char *line, char result[][STRING_BUF]);
 void getStudent(char *line, char result[][STRING_BUF]);
 int isString(char * s);
 void makeName(char *s1, char *s2, char *temp);
+int isNameInArr(char *name, char arr[][STRING_BUF]);
 
 
 #ifdef __cplusplus
