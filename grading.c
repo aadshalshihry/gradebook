@@ -22,7 +22,7 @@ void startingGrading()
     char subjects[SUBJECT][STRING_BUF] = {" "};
     char students[STUDENT][STRING_BUF] = {{0}};
     char buf[LINE_BUF];
-    char * temp1, temp2;
+    char * temp1, *temp2;
     int i = 0, j, k, studentIndex = 0, subjectIndex = 0;
     
     while(fgets(buf, 255, fp) != NULL){
@@ -37,11 +37,13 @@ void startingGrading()
 	    continue;
 	}
        
-//       if(isString(temp1) && isString(temp2)){
-//	   printf("%s\n", temp1 + " " + temp2);
-//		sprintf(students[studentIndex++], temp1 + " " + temp2);
-//
-//       }
+       if(isString(temp1) && isString(temp2)){
+	   char *fullName;
+	   makeName(temp1, temp2, fullName);
+	   
+		sprintf(students[studentIndex++], fullName);
+
+       }
         while(temp2 != NULL){
 	    
             printf("%s ", temp2);
@@ -62,3 +64,11 @@ int isString(char * s){
     return resutl;
 }
 
+void makeName(char *s1, char *s2, char *temp)
+{
+    
+//    char *temp;
+    strcpy(temp, s1);
+    strcat(temp, " ");
+    strcat(temp, s2);
+}
