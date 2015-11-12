@@ -22,8 +22,24 @@ void startingGrading()
     int gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
     char subjects[SUBJECT][STRING_BUF] = {{0}};
     char students[STUDENT][STRING_BUF] = {{0}};
+    int result = 0, i, j;
+    float allAvgForAllGrades = 0.0, count = 0.0;
     
     fillArraysWithInput(gradeBook, subjects, students);
+    
+    
+    
+    for (i = 0; i < SUBJECT; i++) {
+        for (j = 0; j < STUDENT; j++) {
+            allAvgForAllGrades += getAllAvg(gradeBook[i][j]);
+        }
+    }
+    count = SUBJECT*STUDENT*EXAMS;
+    printf("%f", allAvgForAllGrades/(count));
+    
+    
+    
+    
     
 //    int i, j, k;
 //    printf("\n\n");
@@ -35,6 +51,16 @@ void startingGrading()
 //        }
 //    }
 
+}
+
+int getAllAvg(int grades[EXAMS])
+{
+    int sumAvg = 0, k;
+    for(k = 0; k <EXAMS; k++){
+        sumAvg += grades[k];
+    }
+    return sumAvg;
+    
 }
 
 void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
@@ -51,33 +77,32 @@ void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
     
     int i = 0, j = 0, k = 0, studentIndex = 0, subjectIndex = 0;
     
-    
     while(fgets(buf, 255, fp) != NULL){
        temp1 = strtok(buf, "," );
        temp2 = strtok(NULL, ",");
        
-       // get rid of the label in the input
-       if(strcmp(temp1, "Last Name") == 0){
-	   continue;
-       }
+        // get rid of the label in the input
+        if(strcmp(temp1, "Last Name") == 0){
+            continue;
+        }
        
-       // getting subjects
-	if (strlen(temp2) == 1){
-	    sprintf(subjects[subjectIndex++],"%s", temp1);
+        // getting subjects
+        if (strlen(temp2) == 1){
+            sprintf(subjects[subjectIndex++],"%s", temp1);
         
-	    continue;
-	}
+            continue;
+        }
        
     
-       // getting students
-    if(isString(temp1) && isString(temp2)){
-        char fullName[STRING_BUF];
-        makeName(temp1, temp2, fullName);
+        // getting students
+        if(isString(temp1) && isString(temp2)){
+            char fullName[STRING_BUF];
+            makeName(temp1, temp2, fullName);
 
-        if(!isNameInArr(fullName, students)){
-            sprintf(students[studentIndex++],"%s", fullName);
+            if(!isNameInArr(fullName, students)){
+                sprintf(students[studentIndex++],"%s", fullName);
+            }
         }
-    }
      
        // getting grade
         while(temp2 != NULL){
