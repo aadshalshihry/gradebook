@@ -23,7 +23,7 @@ void startingGrading()
     char subjects[SUBJECT][STRING_BUF] = {{0}};
     char students[STUDENT][STRING_BUF] = {{0}};
     int result = 0, i, j;
-    float allAvgForAllGrades = 0.0, count = 0.0;
+    float allAvgForAllGrades = 0.0, avgForStudent = 0.0, count = 0.0;
     
     fillArraysWithInput(gradeBook, subjects, students);
     
@@ -35,25 +35,40 @@ void startingGrading()
         }
     }
     count = SUBJECT*STUDENT*EXAMS;
-    printf("%f", allAvgForAllGrades/(count));
+    printf("The all average for all classes is %0.2f\n\n", allAvgForAllGrades/(count));
+    
+    count = SUBJECT*EXAMS;
+    for (i = 0; i < STUDENT; i++) {
+        avgForStudent = 0.0;
+        printf("The average for %s:\n", students[i]);
+        for (j = 0; j < SUBJECT; j++) {
+            
+            avgForStudent += getAvgforStudent(gradeBook[j][i]); 
+            printf("   %d) %s is %.2f\n",j+1, subjects[j], avgForStudent/(count));
+        }
+        printf("\n");
+    }
+    printf("\n\n");
     
     
+    count = SUBJECT*EXAMS;
     
     
-    
-//    int i, j, k;
-//    printf("\n\n");
-//    for (i = 0; i < SUBJECT; i++) {
-//        for (j = 0; j < STUDENT; j++) {
-//            for (k = 0; k < EXAMS; k++) {
-//                printf("i=%d j=%d k=%d [=>]%d\n",i,j,k,gradeBook[i][j][k]);
-//            }
-//        }
-//    }
+
 
 }
 
 int getAllAvg(int grades[EXAMS])
+{
+    int sumAvg = 0, k;
+    for(k = 0; k <EXAMS; k++){
+        sumAvg += grades[k];
+    }
+    return sumAvg;
+    
+}
+
+int getAvgforStudent(int grades[EXAMS])
 {
     int sumAvg = 0, k;
     for(k = 0; k <EXAMS; k++){
