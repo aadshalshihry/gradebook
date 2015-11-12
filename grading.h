@@ -14,6 +14,7 @@
 #ifndef GRADING_H
 #define GRADING_H
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>

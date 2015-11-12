@@ -17,7 +17,7 @@
 
 int main ( int argc, char *argv[] )
 {
-
+    printf("Grading \n");
     startingGrading();
     return 0;
 }				/* ----------  end of function main  ---------- */
