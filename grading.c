@@ -1,42 +1,62 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * =====================================================================================
+ *
+ *       Filename:  grading.c
+ *
+ *    Description:  This program is keeping track of 2 subjects and 3 students
+ *                  and their 4 exam grades.
+ *
+ *        Version:  1.0
+ *        Created:  11/07/2015 21:51:45
+ *       Compiler:  gcc
+ *
+ *         Author:  Roman - Abdulrahman Alshehri, aalshehri@umassd.edu
+ *
+ * =====================================================================================
  */
-
 #include "grading.h"
 
 
 /* 
  * ===  FUNCTION =============================================================
- *         Name:  main
- *  Description:  
+ *         Name:  startingGrading
+ *  Description:  This function is the start point and it's the function that
+ *                get called from main. 
+ *                
+ *                It has all arrays and initialize variables.
+ * 
+ *                It's calling the following functions:
+ *                  1) fillArraysWithInput => to put the data in it's own array
+ *                  2) getAllAvg           => to get sum for all grades
+ *                  3) getAvgforStudent    => to get sum of grades 
+ *                                            for a student
  * ===========================================================================
  */
 
 void startingGrading()
 {
-    
-     
-     
+    // initialize variables
     int gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
     char subjects[SUBJECT][STRING_BUF] = {{0}};
     char students[STUDENT][STRING_BUF] = {{0}};
     int result = 0, i, j;
     float allAvgForAllGrades = 0.0, avgForStudent = 0.0, count = 0.0;
     
+    // put the data in arrays
     fillArraysWithInput(gradeBook, subjects, students);
     
-    
-    
+    // print all average
     for (i = 0; i < SUBJECT; i++) {
         for (j = 0; j < STUDENT; j++) {
             allAvgForAllGrades += getAllAvg(gradeBook[i][j]);
         }
     }
     count = SUBJECT*STUDENT*EXAMS;
-    printf("The all average for all classes is %0.2f\n\n", allAvgForAllGrades/(count));
+    printf("The all average for all classes is %0.2f\n\n",
+            allAvgForAllGrades/(count));
+    printf("\n\n");
     
+    // print each average of subject for each student
     count = EXAMS;
     for (i = 0; i < STUDENT; i++) {
         printf("The average for %s:\n", students[i]);
@@ -49,6 +69,7 @@ void startingGrading()
     }
     printf("\n\n");
     
+    // print average of both subject for each student.
     count = SUBJECT*EXAMS;
     for (i = 0; i < STUDENT; i++) {
         avgForStudent = 0.0;
@@ -62,6 +83,13 @@ void startingGrading()
     printf("\n\n");
 }
 
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  getAllAvg
+ *  Description:  get the sum of all grades
+ * ===========================================================================
+ */
+
 int getAllAvg(int grades[EXAMS])
 {
     int sumAvg = 0, k;
@@ -72,6 +100,12 @@ int getAllAvg(int grades[EXAMS])
     
 }
 
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  getAvgforStudent
+ *  Description:  get the sum of all grades for student
+ * ===========================================================================
+ */
 int getAvgforStudent(int grades[EXAMS])
 {
     int sumAvg = 0, k;
@@ -82,6 +116,13 @@ int getAvgforStudent(int grades[EXAMS])
     
 }
 
+
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  fillArraysWithInput
+ *  Description:  getting the data from the file and insert it the array
+ * ===========================================================================
+ */
 void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
            char subjects[][STRING_BUF], char students[][STRING_BUF]){
     FILE *fp;
@@ -145,7 +186,13 @@ void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
     } // while fgets
 }
 
-// it's check of the tokens is a number of a string
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  isString
+ *  Description:  it's check of the tokens is a number of a string type
+ * ===========================================================================
+ */
+
 int isString(char * s){
     int i, resutl = 1;
     for (i = 0; i < strlen(s); i++) {
@@ -158,8 +205,14 @@ int isString(char * s){
     return resutl;
 }
 
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  makeName
+ *  Description:  make the full name of the student in one string
+ * ===========================================================================
+ */
 
-// make the full name of the student in one string
+
 void makeName(char *s1, char *s2, char temp[STRING_BUF])
 {
     
@@ -176,7 +229,13 @@ void makeName(char *s1, char *s2, char temp[STRING_BUF])
     temp[tempIndex++] = '\0';
 }
 
-// check if the name is in the student array.
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  isNameInArr
+ *  Description:  check if the name is in the student array.
+ * ===========================================================================
+ */
+
 int isNameInArr(char *name, char arr[][STRING_BUF])
 {
     int i, result = 0;
