@@ -16,8 +16,14 @@
 
 void startingGrading()
 {
-     FILE *fp = fopen("Gradebook.csv", "r");
-
+    
+     FILE *fp;
+     
+     if(!(fp = fopen("GradeBook.csv", "r"))){
+         printf("Can not opne the file \n");
+         exit(1);
+     }
+     
     char gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
     char subjects[SUBJECT][STRING_BUF] = {" "};
     char students[STUDENT][STRING_BUF] = {{0}};
@@ -25,6 +31,7 @@ void startingGrading()
     char * temp1, *temp2;
     
     int i = 0, j, k, studentIndex = 0, subjectIndex = 0;
+    
     
     while(fgets(buf, 255, fp) != NULL){
        temp1 = strtok(buf, "," );
@@ -37,27 +44,28 @@ void startingGrading()
        
        // getting subjects
 	if (strlen(temp2) == 1){
-	    sprintf(subjects[subjectIndex++], temp2);
+	    sprintf(subjects[subjectIndex++],"%s", temp2);
+        
 	    continue;
 	}
        
+    
        // getting students
-       if(isString(temp1) && isString(temp2)){
-	   char *fullName;
-	   makeName(temp1, temp2, fullName);
-	   
-	   if(!isNameInArr(fullName, students)){
-		sprintf(students[studentIndex++], fullName);
-	   }
-       }
-       
+    if(isString(temp1) && isString(temp2)){
+        char fullName[STRING_BUF];
+        makeName(temp1, temp2, fullName);
+
+        if(!isNameInArr(fullName, students)){
+            sprintf(students[studentIndex++],"%s", fullName);
+        }
+        printf("%s\n",fullName);
+    }
+     
        // getting grade
         while(temp2 != NULL){
-	    
-
             temp2 = strtok(NULL, ",");
 	    if(temp2 != NULL)
-		printf("%s ", temp2);
+		printf("%d ", atoi(temp2));
         } // while temp
     } // while fgets
 }
@@ -71,19 +79,26 @@ int isString(char * s){
 	    break;
 	}
     }
-
+    
     return resutl;
 }
 
 
 // make the full name of the student in one string
-void makeName(char *s1, char *s2, char *temp)
+void makeName(char *s1, char *s2, char temp[STRING_BUF])
 {
     
-//    char *temp;
-    strcpy(temp, s1);
-    strcat(temp, " ");
-    strcat(temp, s2);
+    int i, tempIndex = 0;
+    for (i = 0; i < strlen(s1); i++) {
+        temp[tempIndex++] = s1[i];
+    }
+    
+    temp[tempIndex++] = ' ';
+    
+    for (i = 0; i < strlen(s2); i++) {
+        temp[tempIndex++] = s2[i];
+    }
+    temp[tempIndex++] = '\0';
 }
 
 // check if the name is in the student array.
