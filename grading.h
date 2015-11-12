@@ -31,6 +31,8 @@ void getStudent(char *line, char result[][STRING_BUF]);
 int isString(char * s);
 void makeName(char *s1, char *s2, char *temp);
 int isNameInArr(char *name, char arr[][STRING_BUF]);
+void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
+           char subjects[][STRING_BUF], char students[][STRING_BUF]);
 
 
 

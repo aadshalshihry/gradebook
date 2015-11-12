@@ -17,16 +17,35 @@
 void startingGrading()
 {
     
-     FILE *fp;
+     
+     
+    int gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
+    char subjects[SUBJECT][STRING_BUF] = {{0}};
+    char students[STUDENT][STRING_BUF] = {{0}};
+    
+    fillArraysWithInput(gradeBook, subjects, students);
+    
+//    int i, j, k;
+//    printf("\n\n");
+//    for (i = 0; i < SUBJECT; i++) {
+//        for (j = 0; j < STUDENT; j++) {
+//            for (k = 0; k < EXAMS; k++) {
+//                printf("i=%d j=%d k=%d [=>]%d\n",i,j,k,gradeBook[i][j][k]);
+//            }
+//        }
+//    }
+
+}
+
+void fillArraysWithInput(int gradeBook[][STUDENT][EXAMS],
+           char subjects[][STRING_BUF], char students[][STRING_BUF]){
+    FILE *fp;
      
      if(!(fp = fopen("GradeBook.csv", "r"))){
          printf("Can not opne the file \n");
          exit(1);
      }
-     
-    int gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
-    char subjects[SUBJECT][STRING_BUF] = {{0}};
-    char students[STUDENT][STRING_BUF] = {{0}};
+    
     char buf[LINE_BUF];
     char * temp1, *temp2;
     
@@ -37,7 +56,7 @@ void startingGrading()
        temp1 = strtok(buf, "," );
        temp2 = strtok(NULL, ",");
        
-       // get rid of the label
+       // get rid of the label in the input
        if(strcmp(temp1, "Last Name") == 0){
 	   continue;
        }
@@ -80,16 +99,6 @@ void startingGrading()
             }
         } // while temp
     } // while fgets
-    
-//    printf("\n\n");
-//    for (i = 0; i < SUBJECT; i++) {
-//        for (j = 0; j < STUDENT; j++) {
-//            for (k = 0; k < EXAMS; k++) {
-//                printf("i=%d j=%d k=%d [=>]%d\n",i,j,k,gradeBook[i][j][k]);
-//            }
-//        }
-//    }
-
 }
 
 // it's check of the tokens is a number of a string
