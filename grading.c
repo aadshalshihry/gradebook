@@ -24,13 +24,13 @@ void startingGrading()
          exit(1);
      }
      
-    char gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
-    char subjects[SUBJECT][STRING_BUF] = {" "};
+    int gradeBook[SUBJECT][STUDENT][EXAMS] = {{{0}}};
+    char subjects[SUBJECT][STRING_BUF] = {{0}};
     char students[STUDENT][STRING_BUF] = {{0}};
     char buf[LINE_BUF];
     char * temp1, *temp2;
     
-    int i = 0, j, k, studentIndex = 0, subjectIndex = 0;
+    int i = 0, j = 0, k = 0, studentIndex = 0, subjectIndex = 0;
     
     
     while(fgets(buf, 255, fp) != NULL){
@@ -44,7 +44,7 @@ void startingGrading()
        
        // getting subjects
 	if (strlen(temp2) == 1){
-	    sprintf(subjects[subjectIndex++],"%s", temp2);
+	    sprintf(subjects[subjectIndex++],"%s", temp1);
         
 	    continue;
 	}
@@ -58,16 +58,38 @@ void startingGrading()
         if(!isNameInArr(fullName, students)){
             sprintf(students[studentIndex++],"%s", fullName);
         }
-        printf("%s\n",fullName);
     }
      
        // getting grade
         while(temp2 != NULL){
             temp2 = strtok(NULL, ",");
-	    if(temp2 != NULL)
-		printf("%d ", atoi(temp2));
+            if(temp2 != NULL){
+//                printf("i=%d j=%d k=%d [=>] %d ",i,j,k, atoi(temp2));
+                gradeBook[i][j][k++] = atoi(temp2);
+                
+                if(k == EXAMS){
+                    k = 0;
+                    j++;
+                }
+                
+                if(j == STUDENT){
+                    k = 0;
+                    j = 0;
+                    i++;
+                }
+            }
         } // while temp
     } // while fgets
+    
+//    printf("\n\n");
+//    for (i = 0; i < SUBJECT; i++) {
+//        for (j = 0; j < STUDENT; j++) {
+//            for (k = 0; k < EXAMS; k++) {
+//                printf("i=%d j=%d k=%d [=>]%d\n",i,j,k,gradeBook[i][j][k]);
+//            }
+//        }
+//    }
+
 }
 
 // it's check of the tokens is a number of a string
