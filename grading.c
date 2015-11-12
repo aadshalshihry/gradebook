@@ -37,12 +37,11 @@ void startingGrading()
     count = SUBJECT*STUDENT*EXAMS;
     printf("The all average for all classes is %0.2f\n\n", allAvgForAllGrades/(count));
     
-    count = SUBJECT*EXAMS;
+    count = EXAMS;
     for (i = 0; i < STUDENT; i++) {
-        avgForStudent = 0.0;
         printf("The average for %s:\n", students[i]);
         for (j = 0; j < SUBJECT; j++) {
-            
+            avgForStudent = 0.0;
             avgForStudent += getAvgforStudent(gradeBook[j][i]); 
             printf("   %d) %s is %.2f\n",j+1, subjects[j], avgForStudent/(count));
         }
@@ -50,12 +49,17 @@ void startingGrading()
     }
     printf("\n\n");
     
-    
     count = SUBJECT*EXAMS;
-    
-    
-
-
+    for (i = 0; i < STUDENT; i++) {
+        avgForStudent = 0.0;
+        printf("The average for %s for all subjects is ", students[i]);
+        for (j = 0; j < SUBJECT; j++) {
+            avgForStudent += getAvgforStudent(gradeBook[j][i]);   
+        }
+        printf("%.2f\n",avgForStudent/(count));
+        printf("\n");
+    }
+    printf("\n\n");
 }
 
 int getAllAvg(int grades[EXAMS])
